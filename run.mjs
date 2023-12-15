@@ -23,7 +23,7 @@ if (!ARTIFACT_PATH) {
   throw new Error("missing environment variable: 'ARTIFACT_PATH'");
 }
 
-const srcPath = path.resolve(LSCBUILD_CWD, ARTIFACT_PATH);
+const srcPath = ARTIFACT_PATH.startsWith(".") ? path.resolve(LSCBUILD_CWD, ARTIFACT_PATH) : ARTIFACT_PATH;
 
 let fileName = process.env.ARTIFACT_NAME || "artifact.zip";
 if (!fileName.endsWith(".zip")) {
