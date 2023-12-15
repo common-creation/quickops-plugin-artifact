@@ -1,0 +1,17 @@
+{
+  "name": "quickops-plugin-artifact",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "initialize": "node initialize.mjs",
+    "run": "node run.mjs",
+    "finalize": "node finalize.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "COMMON CREATION, Co., Ltd.",
+  "license": "MIT",
+  "dependencies": {
+    "adm-zip": "^0.5.10"
+  }
+}
