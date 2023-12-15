@@ -1,3 +1,4 @@
+import path from "node:path";
 import fs from "node:fs/promises";
 import module from "node:module";
 import process from "node:process";
@@ -8,30 +9,35 @@ const packageJson = require("./package.json");
 
 console.log("run:", `common-creation/quickops-plugin-artifact@${packageJson.version}`);
 
-const { QUICKOPS_BASE_URL, QUICKOPS_TOKEN, ARTIFACT_PATH } = process.env;
+const { QUICKOPS_BASE_URL, QUICKOPS_TOKEN, LSCBUILD_CWD, ARTIFACT_PATH } = process.env;
 if (!QUICKOPS_BASE_URL) {
   throw new Error("missing environment variable: 'QUICKOPS_BASE_URL'");
 }
 if (!QUICKOPS_TOKEN) {
   throw new Error("missing environment variable: 'QUICKOPS_TOKEN'");
 }
+if (!LSCBUILD_CWD) {
+  throw new Error("missing environment variable: 'LSCBUILD_CWD'");
+}
 if (!ARTIFACT_PATH) {
   throw new Error("missing environment variable: 'ARTIFACT_PATH'");
 }
+
+const srcPath = path.resolve(LSCBUILD_CWD, ARTIFACT_PATH);
 
 let fileName = process.env.ARTIFACT_NAME || "artifact.zip";
 if (!fileName.endsWith(".zip")) {
   fileName += ".zip";
 }
 
-console.log("create zip:", ARTIFACT_PATH, "👉", fileName);
+console.log("create zip:", srcPath, "👉", fileName);
 
-const stat = await fs.stat(ARTIFACT_PATH);
+const stat = await fs.stat(srcPath);
 const zip = new AdmZip();
 if (stat.isDirectory()) {
-  zip.addLocalFolder(ARTIFACT_PATH);
+  zip.addLocalFolder(srcPath);
 } else {
-  zip.addLocalFile(ARTIFACT_PATH);
+  zip.addLocalFile(srcPath);
 }
 
 const signRequestUrl = `${QUICKOPS_BASE_URL}/v1/context/artifact`;
