@@ -35,9 +35,9 @@ console.log("create zip:", srcPath, "👉", fileName);
 const stat = await fs.stat(srcPath);
 const zip = new AdmZip();
 if (stat.isDirectory()) {
-  zip.addLocalFolder(srcPath);
+  zip.addLocalFolder(ARTIFACT_PATH);
 } else {
-  zip.addLocalFile(srcPath);
+  zip.addLocalFile(ARTIFACT_PATH);
 }
 
 const signRequestUrl = `${QUICKOPS_BASE_URL}/v1/context/artifact`;
@@ -54,7 +54,7 @@ const signRes = await fetch(signRequestUrl, {
 });
 const { url: putUrl } = await signRes.json();
 
-console.log("upload url:", `${putUrl}`.substring(0, 50), `${putUrl}`.length > 50 ? "..." : "");
+console.log("upload url:", `${putUrl}`.substring(0, 280), `${putUrl}`.length > 280 ? "..." : "");
 
 const putRes = await fetch(putUrl, {
   method: "PUT",
