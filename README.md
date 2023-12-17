@@ -6,12 +6,16 @@
 
 ## 使い方
 
+`Linux コンテナ` と `Windows コンテナ` で共通です
+
 ```yaml
 version: 1
 jobs:
   example:
     steps:
-      # some steps
+
+      # some other steps ...
+
       - use: common-creation/quickops-plugin-artifact#main
         env:
           - ARTIFACT_PATH=./dist
@@ -21,5 +25,5 @@ jobs:
 
 | キー | 挙動 | 必須 | デフォルト値 |
 | ---- | ---- | ---- | ---- |
-| ARTIFACT_PATH | zip圧縮する対象の絶対パス。 `.` から始まる場合はリポジトリルートからの相対パス | ✅ | - |
+| ARTIFACT_PATH | zip圧縮する対象の絶対パス。 `.` で始まる場合はリポジトリルートからの相対パス | ✅ | - |
 | ARTIFACT_NAME | アーティファクトのファイル名 | - | artifact.zip |
