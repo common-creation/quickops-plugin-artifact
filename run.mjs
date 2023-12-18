@@ -35,9 +35,9 @@ console.log("create zip:", srcPath, "👉", fileName);
 const stat = await fs.stat(srcPath);
 const zip = new AdmZip();
 if (stat.isDirectory()) {
-  zip.addLocalFolder(ARTIFACT_PATH);
+  zip.addLocalFolder(srcPath);
 } else {
-  zip.addLocalFile(ARTIFACT_PATH);
+  zip.addLocalFile(srcPath);
 }
 
 const signRequestUrl = `${QUICKOPS_BASE_URL}/v1/context/artifact`;
