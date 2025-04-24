@@ -13,5 +13,8 @@
   "license": "MIT",
   "dependencies": {
     "adm-zip": "^0.5.10"
+  },
+  "volta": {
+    "node": "20.19.1"
   }
 }
